@@ -2,60 +2,73 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre mí | InmoDigitalStudio</title>
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
+  <!-- CABECERA (no se toca) -->
   <header class="navbar">
-  <div class="logo">InmoDigitalStudio</div>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="propiedades.html">Propiedades</a>
-    <a href="sobre-mi.html">Sobre mí</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
-</header>
+    <div class="logo">InmoDigitalStudio</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="propiedades.html">Propiedades</a>
+      <a href="sobre-mi.html" class="active">Sobre mí</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
 
-
+  <!-- CONTENIDO PRINCIPAL -->
   <main class="sobre-mi">
-  <section class="bio">
-    <img src="assets/img/Lucas.jpg.png" alt="Lucas Gabriel Quiroga" class="foto-agente">
-    <div class="texto-bio">
-      <h1>Conoce a Lucas Gabriel Quiroga</h1>
-      <p>
-        Soy <strong>Lucas Gabriel Quiroga</strong>, agente inmobiliario apasionado por ayudar a las personas a encontrar el hogar perfecto.
-        Con enfoque en la confianza, la transparencia y la tecnología, en <strong>InmoDigitalStudio</strong> trabajo cada día
-        para ofrecer una experiencia inmobiliaria moderna y cercana.
-      </p>
-      <p>
-        Mi objetivo es conectar personas con oportunidades reales, con herramientas digitales que simplifican todo el proceso.
-      </p>
-    </div>
-  </section>
+    <section class="bio">
+      <img src="assets/img/Lucas.jpg.png" alt="Lucas Gabriel Quiroga" class="foto-agente">
+      <div class="texto-bio">
+        <h1>Lucas Gabriel Quiroga</h1>
+        <h2>CEO y Fundador de InmoDigitalStudio</h2>
+        <p>
+          <strong>InmoDigitalStudio</strong> nació del sueño de <strong>Lucas Gabriel Quiroga</strong>, un emprendedor apasionado por la tecnología y el sector inmobiliario. 
+          Tras años trabajando en el rubro, Lucas decidió crear una empresa que combinara la atención personalizada de las inmobiliarias tradicionales 
+          con las herramientas digitales más innovadoras.
+        </p>
+        <p>
+          Su misión es <em>hacer que comprar, vender o alquilar una propiedad sea un proceso claro, rápido y confiable</em>. 
+          InmoDigitalStudio ofrece una experiencia moderna, basada en la transparencia, la comunicación constante y el uso inteligente de la tecnología.
+        </p>
+        <p>
+          Hoy, la empresa trabaja con clientes en toda España y América Latina, brindando asesoramiento integral, visitas virtuales y soluciones digitales adaptadas a cada necesidad.
+        </p>
+      </div>
+    </section>
 
-  <section class="contacto-bajo">
-    <h2>Contáctame directamente</h2>
-    <a href="mailto:quirogalucas_realstate@gmail.com" class="btn-contacto">Enviar correo</a>
-    <a href="https://wa.me/5492236859865" class="btn-whatsapp">Contactar por WhatsApp</a>
-  </section>
-</main>
+    <!-- CONTACTO BAJO -->
+    <section class="contacto-bajo">
+      <h2>¿Quieres contactar con nosotros?</h2>
+      <p>Estamos disponibles para resolver tus dudas o coordinar una visita. Contáctanos directamente:</p>
+      <div class="botones-contacto">
+        <a href="https://wa.me/5492236859865?text=Hola%20Lucas%2C%20me%20gustar%C3%ADa%20hablar%20sobre%20una%20propiedad" class="btn-whatsapp">📱 Contactar por WhatsApp</a>
+        <a href="contacto.html" class="btn-contacto">📩 Ir al formulario de contacto</a>
+      </div>
+    </section>
+  </main>
 
+  <!-- BOTÓN WHATSAPP (NO TOCAR) -->
+  <a href="https://wa.me/5492236859865?text=Hola%20Lucas%2C%20me%20gustar%C3%ADa%20contactarte" 
+     class="whatsapp-float" target="_blank" rel="noopener noreferrer" 
+     title="Contactar por WhatsApp">💬</a>
 
-  <a href="https://wa.me/5492236859865?text=Hola%20Lucas%2C%20me%20gustar%C3%ADa%20contactarte" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">💬</a>
+  <!-- BOTÓN ADMIN -->
+  <a href="login.html" style="
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;">Admin</a>
 
   <script src="assets/js/script.js"></script>
 </body>
-<a href="login.html" style="
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background: #007bff;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 14px;
-">Admin</a>
-
 </html>

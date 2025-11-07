@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Propiedades | InmoDigitalStudio</title>
   <meta name="description" content="Listado de propiedades - filtra por referencia, precio, ubicación, habitaciones y superficie.">
 
@@ -13,55 +13,60 @@
 
 <body>
   <header class="navbar">
-  <div class="logo">InmoDigitalStudio</div>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="propiedades.html">Propiedades</a>
-    <a href="sobre-mi.html">Sobre mí</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
-</header>
+    <div class="logo">InmoDigitalStudio</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="propiedades.html">Propiedades</a>
+      <a href="sobre-mi.html">Sobre mí</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
 
-  <main class="container">
-    <h1>Propiedades</h1>
+  <main class="pagina-propiedades">
+    <div class="fondo">
+      <section class="container">
+        <h1 style="text-align:center; color:white; margin-bottom:20px;">Propiedades disponibles</h1>
 
-    <!-- Filtros (siempre visibles al hacer scroll) -->
-    <section class="filtros" style="
-      position: sticky;
-      top: 100px;
-      background: #fff;
-      border: 1px solid #ddd;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      border-radius: 10px;
-      z-index: 900;
-    ">
-      <div class="f-row">
-        <label>Referencia <input id="f-ref" type="text" placeholder="REF001"></label>
-        <label>Ubicación
-          <select id="f-ubicacion">
-            <option value="">Todas</option>
-            <option>Madrid</option><option>Barcelona</option><option>Valencia</option><option>Sevilla</option>
-            <option>Málaga</option><option>Bilbao</option><option>Granada</option><option>Valladolid</option>
-            <option>Zaragoza</option><option>Córdoba</option><option>Alicante</option><option>Toledo</option>
-          </select>
-        </label>
-      </div>
+        <!-- Filtros -->
+        <div class="filtros" style="
+          position: sticky;
+          top: 100px;
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid #ddd;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          border-radius: 10px;
+          z-index: 900;
+          color: #000;
+        ">
+          <div class="f-row">
+            <label>Referencia <input id="f-ref" type="text" placeholder="REF001"></label>
+            <label>Ubicación
+              <select id="f-ubicacion">
+                <option value="">Todas</option>
+                <option>Madrid</option><option>Barcelona</option><option>Valencia</option><option>Sevilla</option>
+                <option>Málaga</option><option>Bilbao</option><option>Granada</option><option>Valladolid</option>
+                <option>Zaragoza</option><option>Córdoba</option><option>Alicante</option><option>Toledo</option>
+              </select>
+            </label>
+          </div>
 
-      <div class="f-row">
-        <label>Precio desde <input id="f-precio-min" type="number" placeholder="0"></label>
-        <label>Precio hasta <input id="f-precio-max" type="number" placeholder="9999999"></label>
-        <label>Habitaciones <input id="f-habs" type="number" min="0" placeholder="--"></label>
-        <label>Superficie mínima (m²) <input id="f-super" type="number" min="0" placeholder="--"></label>
-      </div>
+          <div class="f-row">
+            <label>Precio desde <input id="f-precio-min" type="number" placeholder="0"></label>
+            <label>Precio hasta <input id="f-precio-max" type="number" placeholder="9999999"></label>
+            <label>Habitaciones <input id="f-habs" type="number" min="0" placeholder="--"></label>
+            <label>Superficie mínima (m²) <input id="f-super" type="number" min="0" placeholder="--"></label>
+          </div>
 
-      <div class="f-actions" style="text-align:right;">
-        <button id="btn-buscar" class="btn">Buscar</button>
-        <button id="btn-limpiar" class="btn btn-outline">Limpiar</button>
-      </div>
-    </section>
+          <div class="f-actions" style="text-align:right;">
+            <button id="btn-buscar" class="btn">Buscar</button>
+            <button id="btn-limpiar" class="btn btn-outline">Limpiar</button>
+          </div>
+        </div>
 
-    <!-- Resultados -->
-    <section id="resultados" class="grid"></section>
+        <!-- Resultados -->
+        <section id="resultados" class="grid"></section>
+      </section>
+    </div>
   </main>
 
   <!-- Modal con Swiper -->
