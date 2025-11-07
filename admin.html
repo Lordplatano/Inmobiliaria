@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Administración | InmoDigitalStudio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    #cerrarSesion {
+      display: block;
+      margin: 20px auto;
+      background: #222;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #cerrarSesion:hover {
+      background: #555;
+    }
+
+    form {
+      max-width: 700px;
+      margin: 20px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background: #0056b3;
+    }
+
+    .lista-propiedades {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .propiedad {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .propiedad img {
+      max-width: 200px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .propiedad button {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .propiedad button:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Panel de Administración</h1>
+  <button id="cerrarSesion">Cerrar sesión</button>
+
+  <form id="formPropiedad">
+    <h2>Añadir nueva propiedad</h2>
+    <label>Título</label>
+    <input type="text" id="titulo" required>
+
+    <label>Ubicación</label>
+    <input type="text" id="ubicacion" required>
+
+    <label>Precio (€)</label>
+    <input type="number" id="precio" required>
+
+    <label>Superficie (m²)</label>
+    <input type="number" id="superficie" required>
+
+    <label>Imagen (nombre del archivo o URL)</label>
+    <input type="text" id="imagen">
+
+    <label>Descripción</label>
+    <textarea id="descripcion"></textarea>
+
+    <button type="submit">Añadir Propiedad</button>
+  </form>
+
+  <div class="lista-propiedades">
+    <h2>Propiedades actuales</h2>
+    <div id="lista"></div>
+  </div>
+
+  <script>
+    // 🔒 Protección del panel
+    if (localStorage.getItem("rol") !== "admin") {
+      window.location.href = "login.html";
+    }
+
+    const form = document.getElementById("formPropiedad");
+    const lista = document.getElementById("lista");
+
+    // 🧭 Cargar propiedades existentes
+    async function cargarPropiedades() {
+      try {
+        const res = await fetch("/api/propiedades");
+        const data = await res.json();
+        lista.innerHTML = "";
+
+        data.forEach((p, i) => {
+          const div = document.createElement("div");
+          div.className = "propiedad";
+          div.innerHTML = `
+            <strong>${p.titulo}</strong><br>
+            📍 ${p.ubicacion} — 💶 ${p.precio}€ — 📐 ${p.superficie} m²
+            <br>
+            ${p.imagen ? `<img src="assets/img/propiedades/${p.imagen}" alt="${p.titulo}">` : ""}
+            <p>${p.descripcion || ""}</p>
+            <button onclick="eliminarPropiedad(${i})">Eliminar</button>
+          `;
+          lista.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Error al cargar propiedades:", error);
+      }
+    }
+
+    // ➕ Añadir nueva propiedad
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nuevaPropiedad = {
+        titulo: document.getElementById("titulo").value.trim(),
+        ubicacion: document.getElementById("ubicacion").value.trim(),
+        precio: parseFloat(document.getElementById("precio").value),
+        superficie: parseFloat(document.getElementById("superficie").value),
+        imagen: document.getElementById("imagen").value.trim(),
+        descripcion: document.getElementById("descripcion").value.trim()
+      };
+
+      const res = await fetch("/api/propiedades", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nuevaPropiedad)
+      });
+
+      if (res.ok) {
+        alert("Propiedad añadida correctamente ✅");
+        form.reset();
+        cargarPropiedades();
+      } else {
+        alert("Error al añadir propiedad ❌");
+      }
+    });
+
+    // 🗑️ Eliminar propiedad
+    async function eliminarPropiedad(index) {
+      if (!confirm("¿Eliminar esta propiedad?")) return;
+
+      const res = await fetch(`/api/propiedades/${index}`, { method: "DELETE" });
+      if (res.ok) {
+        alert("Propiedad eliminada");
+        cargarPropiedades();
+      } else {
+        alert("Error al eliminar");
+      }
+    }
+
+    // 🚪 Cerrar sesión
+    document.getElementById("cerrarSesion").addEventListener("click", () => {
+      localStorage.removeItem("rol");
+      window.location.href = "login.html";
+    });
+
+    // Cargar propiedades al iniciar
+    cargarPropiedades();
+  </script>
+</body>
+</html>

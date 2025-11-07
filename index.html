@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>InmoDigitalStudio | Encuentra tu próximo hogar</title>
+  <meta name="description" content="InmoDigitalStudio - Lucas Gabriel Quiroga. Pisos y casas en venta y alquiler.">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- Swiper CSS (CDN) -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</head>
+
+<body>
+  <!-- Barra superior desplazable -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      📞 +54 9 223 685-9865  &nbsp; | &nbsp;
+      📧 quirogalucas_realstate@gmail.com  &nbsp; | &nbsp;
+      🌍 Instagram @lquiroga_realstate  &nbsp; | &nbsp;
+      📘 Facebook Lucas Quiroga Real State
+    </div>
+  </div>
+
+ <header class="navbar">
+  <div class="logo">InmoDigitalStudio</div>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="propiedades.html">Propiedades</a>
+    <a href="sobre-mi.html">Sobre mí</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+</header>
+
+
+  <!-- Hero con imagen fija -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Encuentra tu próximo hogar con InmoDigitalStudio</h1>
+      <p class="lead">Conectamos personas con hogares digitales — transparencia, cercanía y tecnología.</p>
+      <a class="btn" href="propiedades.html">Ver propiedades</a>
+    </div>
+  </section>
+
+  <!-- Slider de propiedades destacadas (Swiper) -->
+  <section class="destacadas">
+    <h2>Propiedades destacadas</h2>
+    <div class="swiper-container main-swiper">
+      <div class="swiper-wrapper" id="slider-destacadas">
+        <!-- Slides generados por script.js -->
+      </div>
+      <!-- controles -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/5492236859865?text=Hola%20Lucas%2C%20estoy%20interesado%20en%20una%20propiedad" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">💬</a>
+
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    // Inicializa slider principal y carga 6 primeras propiedades como destacadas
+    document.addEventListener('DOMContentLoaded', async () => {
+      const props = await fetch('propiedades.json').then(r=>r.json());
+      const destacadas = props.slice(0, 8);
+      const container = document.getElementById('slider-destacadas');
+      destacadas.forEach(p=>{
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `
+          <div class="slide-card" data-id="${p.id}">
+            <img src="${p.imagenes[0]}" alt="${p.titulo}">
+            <div class="slide-info">
+              <h3>${p.titulo}</h3>
+              <p>${p.ubicacion} • ${p.precio} ${p.moneda}</p>
+            </div>
+          </div>`;
+        container.appendChild(slide);
+      });
+
+      new Swiper('.main-swiper', {
+        slidesPerView: 1.1,
+        spaceBetween: 20,
+        centeredSlides: false,
+        loop: true,
+        autoplay: { delay: 3500 },
+        breakpoints: { 700: { slidesPerView: 2.2 }, 1100: { slidesPerView: 3.2 } },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        pagination: { el: '.swiper-pagination', clickable: true }
+      });
+
+      // Abrir modal al click en slide (usa función global openPropertyModal)
+      document.querySelectorAll('.slide-card').forEach(el=>{
+        el.addEventListener('click', ()=> window.openPropertyModal(el.dataset.id));
+      });
+    });
+  </script>
+</body>
+</html>

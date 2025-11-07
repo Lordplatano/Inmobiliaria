@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contacto | InmoDigitalStudio</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">InmoDigitalStudio</div>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="propiedades.html">Propiedades</a>
+    <a href="sobre-mi.html">Sobre mí</a>
+    <a href="contacto.html">Contacto</a>
+    </nav>
+    </header>
+
+
+  <main class="contacto">
+  <div class="contacto-img">
+    <img src="assets/img/logo/Oficina.png" alt="InmoDigitalStudio oficina">
+  </div>
+
+  <div class="contacto-form">
+    <h2>Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Nombre completo" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea placeholder="Tu mensaje..." required></textarea>
+      <button type="submit">Enviar mensaje</button>
+    </form>
+  </div>
+</main>
+
+
+  <a href="https://wa.me/5492236859865?text=Hola%20Lucas%2C%20me%20gustar%C3%ADa%20contactarte" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">💬</a>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    function enviarContacto(e){
+      e.preventDefault();
+      const nombre = document.getElementById('c-nombre').value.trim();
+      const email = document.getElementById('c-email').value.trim();
+      const mensaje = document.getElementById('c-mensaje').value.trim();
+      const text = `Hola Lucas, soy ${nombre}. ${mensaje} (Email: ${email})`;
+      window.open(`https://wa.me/5492236859865?text=${encodeURIComponent(text)}`);
+    }
+  </script>
+</body>
+</html>
